@@ -62,3 +62,25 @@ function toggleDrum(drum, index){
 
 }//close toggleDrum
 
+function clear(drum){
+    
+    switch(drum){
+        case 'kicks':
+            kicks = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+            break;
+
+        case 'snares':
+            snares = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+            break;
+
+        case 'hiHats':
+            hiHats = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+            break;
+
+        case 'rideCymbals':
+            rideCymbals = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+
+        default: break;
+    }
+}//close clear()
+
