@@ -62,6 +62,7 @@ function toggleDrum(drum, index){
 
 }//close toggleDrum
 
+//resets the selected drum to defaults.
 function clear(drum){
     
     switch(drum){
@@ -84,3 +85,52 @@ function clear(drum){
     }
 }//close clear()
 
+//inverts the selected drum to the opposite of what it was set to before. 
+function invert(drum){
+
+    switch(drum){
+        case 'kicks':
+            kicks = kicks.map(index => {
+                if(index){
+                    return false;
+                }
+                else return true;
+            });
+            break;
+
+        case 'snares':
+            snares = snares.map(index => {
+                if(index){
+                    return false;
+                }
+                else return true;
+            });
+            break;
+
+        case 'hiHats':
+            hiHats = hiHats.map(index => {
+                if(index){
+                    return false;
+                }
+                else return true;
+            });
+            break;
+
+        case 'rideCymbals':
+            rideCymbals = rideCymbals.map(index => {
+                if(index){
+                    return false;
+                }
+                else return true;
+            });
+            break;
+
+        default: break;
+    }//close switch
+}//close invert
+
+/*
+console.log(hiHats);
+invert('hiHats');
+console.log(hiHats);
+*/
