@@ -13,7 +13,7 @@ const { response } = require('express');
 //404: Is returned when a request is made out of bounds. 
 //400: Bad request is returned when the request did not come in the form of GET or PUT. 
 const presetHandler = (reqType, index, newPresetArray) => {
-    let repsonse = [];
+    let response = [];
     
     //404
     if (index < 0 || index > 3){
@@ -24,8 +24,17 @@ const presetHandler = (reqType, index, newPresetArray) => {
     
     switch(reqType){
         case 'GET':
+            response[0] = 200;
+            response[1] = presets[index];
+            return response;
             
+        case 'PUT':
+            response[0] = 200;
+            response[1] = newPresetArray;
+            presets[index] = newPresetArray;
+            return response;
 
+        default: response[0] = 400; return response;
 
     }//closing switch
 
@@ -34,4 +43,4 @@ const presetHandler = (reqType, index, newPresetArray) => {
 // Leave this line so that your presetHandler function can be used elsewhere:
 module.exports = presetHandler;
 
-console.log(presetHandler('meow', 7));
+console.log(presetHandler('GET', 0));
