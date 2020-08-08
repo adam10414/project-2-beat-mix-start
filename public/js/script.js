@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 // Drum Arrays
 let kicks = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 let snares = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
@@ -91,7 +93,7 @@ function invert(drum){
     switch(drum){
         case 'kicks':
             kicks = kicks.map(index => {
-                if(index){
+                if(index){ //index should be a boolean value. 
                     return false;
                 }
                 else return true;
@@ -129,8 +131,50 @@ function invert(drum){
     }//close switch
 }//close invert
 
-/*
-console.log(hiHats);
-invert('hiHats');
-console.log(hiHats);
-*/
+//This accepts coordinates on a grid, and return sthe neighboring cooridnates above, below, and side to side. Diagnals are not counted. 
+//Grid is zero indexed at bottom left corner. 
+//Grid is a [size] x [size] square. 
+//Returns in [xValue, yValue] format per neighbor.
+function getNeighborPads(x, y, size){
+    let response = [];
+
+    //Checks for out of bounds selections. 
+    //x and y inputs should be >= 0, and should not exceed the size specified.
+    //size -1 because x and y are index coordinates, and size is total rows / columns in the square. 
+    if(x < 0 || y < 0 || x > size - 1 || y > size - 1){
+        return response;
+    }
+
+    if(x !== size - 1 && y !== size -1){//handles all cases towards bottom left of grid. 
+    //if x is a positive integer we can afford to add and subtract from the initial value. 
+    if(x > 0){
+        response.unshift([x+1, y]);
+        response.unshift([x-1, y]);
+    }
+
+    else {
+        response.unshift([x+1, y]);
+    }
+
+    //if y is a positive integer we can afford to add and subtract from the initial value. 
+    if(y > 0){
+        response.unshift([x, y+1]);
+        response.unshift([x, y-1]);
+    }
+
+    else{
+        response.unshift([x, y+1]);
+    }
+
+    return response;
+
+}//closing bottom left if. 
+
+if(x === size -1){//handlings right edge cases. 
+    response.unshift([x-1, y]);
+    
+}
+    
+}//closing getNeighborPads
+
+//console.log(getNeighborPads(1,1,5));
