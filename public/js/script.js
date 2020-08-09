@@ -1,4 +1,4 @@
-const { response } = require("express");
+//const { response } = require("express");
 
 // Drum Arrays
 let kicks = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
@@ -145,36 +145,68 @@ function getNeighborPads(x, y, size){
         return response;
     }
 
-    if(x !== size - 1 && y !== size -1){//handles all cases towards bottom left of grid. 
-    //if x is a positive integer we can afford to add and subtract from the initial value. 
-    if(x > 0){
+    if(x !== 0 && y !== 0 && x !== size - 1 && y !== size - 1){ //If x,y are not edge cases.
         response.unshift([x+1, y]);
         response.unshift([x-1, y]);
-    }
-
-    else {
-        response.unshift([x+1, y]);
-    }
-
-    //if y is a positive integer we can afford to add and subtract from the initial value. 
-    if(y > 0){
         response.unshift([x, y+1]);
         response.unshift([x, y-1]);
+        return response;
     }
 
-    else{
+    else if(x === 0 && y !== size -1 && y !== 0){ //Left edge cases
+        response.unshift([x+1, y]);
         response.unshift([x, y+1]);
+        response.unshift([x, y-1]);
+        return response;
     }
 
-    return response;
+    else if(x === 0 && y === size -1){ //Top left corner edge case
+        response.unshift([x + 1, y]);
+        response.unshift([x, y-1]);
+        return response;
+    }
 
-}//closing bottom left if. 
+    else if(x === 0 && y === 0){ //Bottom left corder edge case
+        response.unshift([x+1, y]);
+        response.unshift([x, y+1]);
+        return response;
+    }
 
-if(x === size -1){//handlings right edge cases. 
-    response.unshift([x-1, y]);
-    
-}
+    else if(x === size - 1 && y !== size -1 && y !== 0){ //Right edge cases
+        response.unshift([x - 1, y]);
+        response.unshift([x, y+1]);
+        response.unshift([x, y-1]);
+        return response;
+    }
+
+    else if(x === size -1 && y === size - 1){ //Top right corner edge case
+        response.unshift([x-1, y]);
+        response.unshift([x, y-1]);
+        return response;
+    }
+
+    else if(x === size -1 && y === 0){ //Bottom right corner edge case.
+        response.unshift([x-1, y]);
+        response.unshift([x, y+1]);
+        return response;
+    }
+
+
+    //It should be noted I'm being very loose with my conditionals here because if/else statements are evaluated in order and there is no other possibilities left over in this selection process. 
+    else if(y === size -1){ //Top edge cases. 
+        response.unshift([x+1, y]);
+        response.unshift([x-1, y]);
+        response.unshift([x, y-1]);
+        return response;
+    }
+
+    else if(y === 0){ //Bottom edge cases
+        response.unshift([x+1, y]);
+        response.unshift([x-1, y]);
+        response.unshift([x, y+1]);
+        return response;
+    }
     
 }//closing getNeighborPads
 
-//console.log(getNeighborPads(1,1,5));
+//console.log(getNeighborPads(4,4,5));
