@@ -43,4 +43,4 @@ const presetHandler = (reqType, index, newPresetArray) => {
 // Leave this line so that your presetHandler function can be used elsewhere:
 module.exports = presetHandler;
 
-console.log(presetHandler('GET', 0));
+//console.log(presetHandler('GET', 0));
